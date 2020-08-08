@@ -6,7 +6,8 @@
 <p>Documentation :</p>
 
 <p>Follow the following instruction to install and load the database.</p>
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <ul>
 <li>
 	Navigate to database directory on your terminal 
