@@ -2,7 +2,9 @@ const Event = require("../models/Events");
 const Actors = require("../models/Actors");
 
 var getAllEvents = async (req, res) => {
-  Event.readEvents(function (data) {
+  Event.readEvents(function (err,data) {
+    if(err)
+        res.status(400).json(err)
      let result = setEventResult(data)
      res.status(200).json(result);
   });
@@ -19,8 +21,10 @@ var addEvent = (req, res) => {
       'repo_id' : req.body.repo.id,
       'created_at' : req.body.created_at,
     }
-    Event.createEvent(data, function(data){
-       res.status(201).json({
+    Event.createEvent(data, function(err,data){
+      if(err)
+        res.status(400).json(err)
+      res.status(201).json({
          'message' : 'Events added succsfully',
          'events' : data
        })
@@ -28,14 +32,18 @@ var addEvent = (req, res) => {
 };
 
 var getByActor = (req, res) => {
-   Event.readEventsbyActors(req.params.actorId, (data)=>{
+   Event.readEventsbyActors(req.params.actorId, (err,data)=>{
+    if(err)
+      res.status(400).json(err)
      let result = setEventResult(data)  
      res.status(200).json(result)
    });
 };
 
 var eraseEvents = (req, res) => {
-  Event.deleteEvent(req.params.id, (data) => {
+  Event.deleteEvent(req.params.id, (err,data) => {
+    if(err)
+        res.status(500).json(err)
     res.status(200).json({
       'message':'Event succesfully deleted'
     })

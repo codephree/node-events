@@ -1,18 +1,24 @@
 const Actors = require("../models/Actors");
 var getAllActors = (req, res) => {
-   Actors.readActors((data)=> {
-      res.status(200).json(data);
+   Actors.readActors((err,data)=> {
+       if(err)
+        res.status(400).json(err)
+       res.status(200).json(data);
     })  
 };
 
 var updateActor = (req, res) => {
-  Actors.updateActors(req.body, (data) => {
+  Actors.updateActors(req.body, (err,data) => {
+    if(err)
+        res.status(404).json(err)
     res.status(200).json(data)
   })
 };
 
 var getStreak = (req, res) => {
-    Actors.readActorsbyStrak((data) => {
+    Actors.readActorsbyStrak((err,data) => {
+      if(err)
+        res.status(400).json(err)
       res.status(200).json(data);
     })
 };
